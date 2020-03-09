@@ -1,5 +1,5 @@
 import json
-from typegamedash.core.question_class import Question
+from typegame.core.question_class import Question
 
 
 def handle_error(e, line, explanation):

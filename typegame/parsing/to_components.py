@@ -5,8 +5,8 @@ import dash_html_components as html
 from typing import List, TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from typegamedash.core.question_class import Question
-    from typegamedash.core.submission_class import Submission
+    from typegame.core.question_class import Question
+    from typegame.core.submission_class import Submission
 
 
 def parse_question_list(question_list: List["Question"]):

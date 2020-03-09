@@ -1,7 +1,26 @@
-# Mypackage
+# Typegame
 
-- badges
+a small dash app for creating quizes for programming education
 
-- what is this
+### install
+`pip install typegame`
 
-- why?
+or
+
+`pip install git+https://github.com/endremborza/typegame.git`
+
+for latest version
+
+### use
+
+run with 
+
+```
+python -m typegame \
+    --host=0.0.0.0 \
+    --port=6999 \
+    --quiz-path=./quizes \
+    --answer-path=./answers
+```
+
+(all parameters are optional, these are the defaults)

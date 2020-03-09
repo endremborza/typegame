@@ -4,8 +4,8 @@ import os
 import dash
 
 
-from typegamedash.core.layout import get_layout_frame
-from typegamedash.core.callbacks import decorate_app
+from typegame.core.layout import get_layout_frame
+from typegame.core.callbacks import decorate_app
 
 
 EXTERNAL_STYLESHEETS = ["https://codepen.io/chriddyp/pen/bWLwgP.css"]

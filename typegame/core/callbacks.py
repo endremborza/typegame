@@ -7,19 +7,19 @@ import dash
 import dash_html_components as html
 from dash.dependencies import Input, Output, State
 
-from typegamedash.parsing.from_notebook import parse_notebook
-from typegamedash.parsing.to_components import (
+from typegame.parsing.from_notebook import parse_notebook
+from typegame.parsing.to_components import (
     parse_leaderboard,
     parse_question_list,
     get_question_solution_layout,
 )
-from typegamedash.core.submission_class import Submission
+from typegame.core.submission_class import Submission
 
 
 from typing import List, Tuple, TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from typegamedash.core.question_class import Question
+    from typegame.core.question_class import Question
 
 
 def decorate_app(app: dash.Dash, quiz_path: str, answer_path: str) -> None:

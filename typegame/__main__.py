@@ -1,4 +1,4 @@
-from typegamedash.core.app import get_app
+from typegame.core.app import get_app
 import argparse
 
 parser = argparse.ArgumentParser()
