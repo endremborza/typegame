@@ -1,7 +1,7 @@
 from dataclasses import dataclass, asdict
 
 
-@dataclass()
+@dataclass
 class Submission:
 
     name: str
