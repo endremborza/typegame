@@ -5,8 +5,8 @@ import dash_html_components as html
 from typing import List, TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from typegame.core.question_class import Question
-    from typegame.core.submission_class import Submission
+    from typegame.core.question_class import Question  # noqa: F401
+    from typegame.core.submission_class import Submission  # noqa: F401
 
 
 def parse_question_list(question_list: List["Question"]):
@@ -77,7 +77,7 @@ def get_question_solution_layout(
     )
 
 
-def parse_leaderboard(submission_list: List['Submission']):
+def parse_leaderboard(submission_list: List["Submission"]):
 
     quiz_boards = {}
 
@@ -91,7 +91,7 @@ def parse_leaderboard(submission_list: List['Submission']):
         name = sub.name
         user_dic = {
             "score": "{}/{}".format(sub.correct_answers, len(sub.answers)),
-            "correct_answers": sub.correct_answers
+            "correct_answers": sub.correct_answers,
         }
         try:
             user_dic["sub_count"] = user_scores[name]["sub_count"] + 1
@@ -119,5 +119,7 @@ def parse_leaderboard(submission_list: List['Submission']):
                 last_corr = corr
             if corr < last_corr:
                 rank = idx + 1
-            out.append(html.H4("{}. {} - ({})".format(rank, uname, udic["score"])))
+            out.append(
+                html.H4("{}. {} - ({})".format(rank, uname, udic["score"]))
+            )
     return out

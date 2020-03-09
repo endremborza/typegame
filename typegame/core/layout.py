@@ -46,27 +46,27 @@ def get_layout_frame(quiz_path_list):
                 n_intervals=0,  # in milliseconds
             ),
             html.Div(
-                children=
-                    dcc.Dropdown(
-                        options=quiz_options,
-                        placeholder="Select quiz!",
-                        id="quiz_list",
-                    ),
-                style={"padding": "5px",
-                       "width": "20%"}
+                children=dcc.Dropdown(
+                    options=quiz_options,
+                    placeholder="Select quiz!",
+                    id="quiz_list",
+                ),
+                style={"padding": "5px", "width": "20%"},
             ),
             html.Div(
                 [
-
                     html.Div(
                         children=quiz_body,
                         className="nine columns",
                         style={"textAlign": "center"},
                     ),
                     html.Div(
-                        children=[html.H2("Leaderboard"), html.Div(id="leaderboard")],
+                        children=[
+                            html.H2("Leaderboard"),
+                            html.Div(id="leaderboard"),
+                        ],
                         className="three columns",
-                    )
+                    ),
                 ]
             ),
         ],

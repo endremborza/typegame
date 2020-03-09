@@ -19,7 +19,7 @@ from typegame.core.submission_class import Submission
 from typing import List, Tuple, TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from typegame.core.question_class import Question
+    from typegame.core.question_class import Question  # noqa: F401
 
 
 def decorate_app(app: dash.Dash, quiz_path: str, answer_path: str) -> None:
