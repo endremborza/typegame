@@ -22,7 +22,9 @@ if TYPE_CHECKING:
     from typegame.core.question_class import Question  # noqa: F401
 
 
-def decorate_app(app: dash.Dash, quiz_path: str, answer_path: str) -> None:
+def decorate_app(
+    app: dash.Dash, quiz_path: str, answer_path: str, type_only: bool = True
+) -> None:
     @app.callback(
         Output("leaderboard", "children"),
         [Input("interval-component", "n_intervals")],
@@ -40,7 +42,9 @@ def decorate_app(app: dash.Dash, quiz_path: str, answer_path: str) -> None:
     def get_question_list_for_quiz(quiz_name):
         if quiz_name is not None:
             return parse_question_list(
-                parse_notebook(os.path.join(quiz_path, f"{quiz_name}.ipynb"))
+                parse_notebook(
+                    os.path.join(quiz_path, f"{quiz_name}.ipynb"), type_only
+                )
             )
 
     @app.callback(
@@ -57,7 +61,7 @@ def decorate_app(app: dash.Dash, quiz_path: str, answer_path: str) -> None:
         if (n_clicks < 1) or (answers is None):
             return [], [], {}, {}
         question_list = parse_notebook(
-            os.path.join(quiz_path, f"{quiz_name}.ipynb")
+            os.path.join(quiz_path, f"{quiz_name}.ipynb"), type_only
         )
         parsed_answers = [
             a["props"]["children"][2]["props"].get("value") for a in answers

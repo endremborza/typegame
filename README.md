@@ -24,3 +24,6 @@ python -m typegame \
 ```
 
 (all parameters are optional, these are the defaults)
+
+optional parameters:
+- `--value-game`: asks for values, not just type of last line

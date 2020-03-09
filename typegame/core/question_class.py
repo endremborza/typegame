@@ -1,5 +1,5 @@
 import urllib.parse
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 
 
 def _format_to_pythontutor_link(code):
@@ -30,9 +30,9 @@ class Question:
 
     answer: str
     answer_value: str
-    alternates: set
     _code_lines: list
     _explanation_lines: list
+    alternates: set = field(default_factory=lambda: set())
 
     @property
     def pythontutor_link(self):

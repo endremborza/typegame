@@ -11,7 +11,9 @@ from typegame.core.callbacks import decorate_app
 EXTERNAL_STYLESHEETS = ["https://codepen.io/chriddyp/pen/bWLwgP.css"]
 
 
-def get_app(quiz_path: str, answer_path: str) -> dash.Dash:
+def get_app(
+    quiz_path: str, answer_path: str, type_only: bool = True
+) -> dash.Dash:
 
     app = dash.Dash(__name__, external_stylesheets=EXTERNAL_STYLESHEETS)
     app.config["suppress_callback_exceptions"] = True
@@ -23,6 +25,6 @@ def get_app(quiz_path: str, answer_path: str) -> dash.Dash:
 
     os.makedirs(answer_path, exist_ok=True)
 
-    decorate_app(app, quiz_path, answer_path)
+    decorate_app(app, quiz_path, answer_path, type_only)
 
     return app

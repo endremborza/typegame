@@ -7,33 +7,27 @@ def handle_error(e, line, explanation):
     explanation.append("{} -> {}".format(type(e).__name__, e))
 
 
-def parse_snippet(snippet):
-    code = []
+def parse_snippet(snippet: list, type_only=True):
     explanation = []
-    alternates = ["error"]
-    alt_line = "ALTERNATES = []"
-    line = "None"
+    if snippet:
+        line = snippet[-1]
+    else:
+        line = "None"
     has_error = False
-    for line in snippet:
-        if "ALTERNATES" in line:
-            alt_line = line
-        else:
-            code.append(line)
 
     try:
-        exec("".join(code), locals())
+        exec("".join(snippet), locals())
     except Exception as e:
         handle_error(
-            e, code[e.__traceback__.tb_next.tb_lineno - 1], explanation
+            e, snippet[e.__traceback__.tb_next.tb_lineno - 1], explanation
         )
         has_error = True
 
-    exec(alt_line, locals())
-    atypes = eval("[type(x).__name__ for x in ALTERNATES]", locals())
-    alternates += atypes
-
     try:
-        answer = eval("type({}).__name__".format(line.strip()), locals())
+        if type_only:
+            answer = eval(f"type({line.strip()}).__name__", locals())
+        else:
+            answer = str(eval(line.strip(), locals()))
         answer_value = str(eval(line.strip(), locals()))
     except Exception as e:
         answer = "error"
@@ -48,20 +42,19 @@ def parse_snippet(snippet):
     return Question(
         answer=answer,
         answer_value=answer_value,
-        alternates=set(alternates + [answer]),
-        _code_lines=code,
+        _code_lines=snippet,
         _explanation_lines=explanation,
     )
 
 
-def parse_notebook(nb_loc):
-    return list(
-        map(
-            parse_snippet,
-            [
-                c["source"]
-                for c in json.load(open(nb_loc, "r"))["cells"]
-                if (c["cell_type"] == "code") and (len(c["source"]) > 0)
-            ],
-        )
-    )
+def parse_notebook(nb_loc, type_only=True):
+
+    questions = []
+    for cell in json.load(open(nb_loc, "r"))["cells"]:
+        if (cell["cell_type"] == "code") and (len(cell["source"]) > 0):
+            questions.append(parse_snippet(cell["source"], type_only))
+
+    all_answers = [q.answer for q in questions]
+    for q in questions:
+        q.alternates = set(all_answers.copy())
+    return questions
