@@ -13,6 +13,7 @@ def parse_snippet(snippet):
     alternates = ["error"]
     alt_line = "ALTERNATES = []"
     line = "None"
+    has_error = False
     for line in snippet:
         if "ALTERNATES" in line:
             alt_line = line
@@ -25,6 +26,7 @@ def parse_snippet(snippet):
         handle_error(
             e, code[e.__traceback__.tb_next.tb_lineno - 1], explanation
         )
+        has_error = True
 
     exec(alt_line, locals())
     atypes = eval("[type(x).__name__ for x in ALTERNATES]", locals())
@@ -37,6 +39,9 @@ def parse_snippet(snippet):
         answer = "error"
         answer_value = "error"
         handle_error(e, line, explanation)
+
+    if has_error:
+        answer = "error"
 
     explanation.append("%s --> %s" % (line, answer_value))
 
