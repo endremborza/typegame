@@ -1,4 +1,4 @@
-v0.0.0
-------
+v0.0.1
+======
 
-- first release, yay!!
+- adding proper ALTERNATES support
